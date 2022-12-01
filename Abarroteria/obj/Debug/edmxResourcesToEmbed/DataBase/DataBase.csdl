@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AbarroteriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bodega">
+    <Key>
+      <PropertyRef Name="BodegaId" />
+    </Key>
+    <Property Name="BodegaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Inventario" Relationship="AbarroteriaModel.FK__Inventari__Bodeg__32E0915F" FromRole="Bodega" ToRole="Inventario" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="ClienteID" />
+    </Key>
+    <Property Name="ClienteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="RTN" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ListaPrecioID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ListaPrecio" Relationship="Self.FK__Cliente__ListaPr__286302EC" FromRole="Cliente" ToRole="ListaPrecio" />
+    <NavigationProperty Name="Factura" Relationship="AbarroteriaModel.FK__Factura__Cliente__3D5E1FD2" FromRole="Cliente" ToRole="Factura" />
+  </EntityType>
+  <EntityType Name="Factura">
+    <Key>
+      <PropertyRef Name="FacturaID" />
+    </Key>
+    <Property Name="FacturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ClienteId" Type="Int32" Nullable="false" />
+    <Property Name="TipoFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaFactura" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+    <Property Name="ValorFactura" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SaldoPendiente" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Cliente" Relationship="AbarroteriaModel.FK__Factura__Cliente__3D5E1FD2" FromRole="Factura" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="ListaPrecio">
+    <Key>
+      <PropertyRef Name="ListaPrecioId" />
+    </Key>
+    <Property Name="ListaPrecioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK__Cliente__ListaPr__286302EC" FromRole="ListaPrecio" ToRole="Cliente" />
+    <NavigationProperty Name="PrecioVenta" Relationship="AbarroteriaModel.FK__PrecioVen__Lista__398D8EEE" FromRole="ListaPrecio" ToRole="PrecioVenta" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="productoId" />
+    </Key>
+    <Property Name="productoId" Type="Int32" Nullable="false" />
+    <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Inventario" Relationship="AbarroteriaModel.FK__Inventari__Produ__33D4B598" FromRole="Producto" ToRole="Inventario" />
+    <NavigationProperty Name="PrecioVenta" Relationship="AbarroteriaModel.FK__PrecioVen__Produ__3A81B327" FromRole="Producto" ToRole="PrecioVenta" />
+  </EntityType>
+  <Association Name="FK__Cliente__ListaPr__286302EC">
+    <End Role="ListaPrecio" Type="Self.ListaPrecio" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListaPrecio">
+        <PropertyRef Name="ListaPrecioId" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="ListaPrecioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AbarroteriaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bodegas" EntityType="Self.Bodega" />
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="Facturas" EntityType="Self.Factura" />
+    <EntitySet Name="ListaPrecios" EntityType="Self.ListaPrecio" />
+    <EntitySet Name="Productos" EntityType="Self.Producto" />
+    <AssociationSet Name="FK__Cliente__ListaPr__286302EC" Association="Self.FK__Cliente__ListaPr__286302EC">
+      <End Role="ListaPrecio" EntitySet="ListaPrecios" />
+      <End Role="Cliente" EntitySet="Clientes" />
+    </AssociationSet>
+    <EntitySet Name="TipoPago" EntityType="AbarroteriaModel.TipoPago" />
+    <EntitySet Name="Inventario" EntityType="AbarroteriaModel.Inventario" />
+    <EntitySet Name="Proveedor" EntityType="AbarroteriaModel.Proveedor" />
+    <AssociationSet Name="FK__Inventari__Bodeg__32E0915F" Association="AbarroteriaModel.FK__Inventari__Bodeg__32E0915F">
+      <End Role="Bodega" EntitySet="Bodegas" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inventari__Produ__33D4B598" Association="AbarroteriaModel.FK__Inventari__Produ__33D4B598">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <EntitySet Name="PrecioVenta" EntityType="AbarroteriaModel.PrecioVenta" />
+    <AssociationSet Name="FK__PrecioVen__Lista__398D8EEE" Association="AbarroteriaModel.FK__PrecioVen__Lista__398D8EEE">
+      <End Role="ListaPrecio" EntitySet="ListaPrecios" />
+      <End Role="PrecioVenta" EntitySet="PrecioVenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PrecioVen__Produ__3A81B327" Association="AbarroteriaModel.FK__PrecioVen__Produ__3A81B327">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="PrecioVenta" EntitySet="PrecioVenta" />
+    </AssociationSet>
+    <EntitySet Name="FacturaDetalle" EntityType="AbarroteriaModel.FacturaDetalle" />
+    <AssociationSet Name="FK__Factura__Cliente__3D5E1FD2" Association="AbarroteriaModel.FK__Factura__Cliente__3D5E1FD2">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Factura" EntitySet="Facturas" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TipoPago">
+    <Key>
+      <PropertyRef Name="tipoPagoId" />
+    </Key>
+    <Property Name="tipoPagoId" Type="Int32" Nullable="false" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Inventario">
+    <Key>
+      <PropertyRef Name="InventarioId" />
+    </Key>
+    <Property Name="InventarioId" Type="Int32" Nullable="false" />
+    <Property Name="BodegaId" Type="Int32" Nullable="false" />
+    <Property Name="ProductoId" Type="Int32" Nullable="false" />
+    <Property Name="Disponible" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Bodega" Relationship="AbarroteriaModel.FK__Inventari__Bodeg__32E0915F" FromRole="Inventario" ToRole="Bodega" />
+    <NavigationProperty Name="Productos" Relationship="AbarroteriaModel.FK__Inventari__Produ__33D4B598" FromRole="Inventario" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="ProveedorID" />
+    </Key>
+    <Property Name="ProveedorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="RTN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__Inventari__Bodeg__32E0915F">
+    <End Type="AbarroteriaModel.Bodega" Role="Bodega" Multiplicity="1" />
+    <End Type="AbarroteriaModel.Inventario" Role="Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bodega">
+        <PropertyRef Name="BodegaId" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="BodegaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inventari__Produ__33D4B598">
+    <End Type="AbarroteriaModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="AbarroteriaModel.Inventario" Role="Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="productoId" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="ProductoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PrecioVenta">
+    <Key>
+      <PropertyRef Name="PrecioVentaID" />
+    </Key>
+    <Property Name="PrecioVentaID" Type="Int32" Nullable="false" />
+    <Property Name="ProductoID" Type="Int32" Nullable="false" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="FechaDesde" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaHasta" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ListaPrecio" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ListaPrecio1" Relationship="AbarroteriaModel.FK__PrecioVen__Lista__398D8EEE" FromRole="PrecioVenta" ToRole="ListaPrecio" />
+    <NavigationProperty Name="Productos" Relationship="AbarroteriaModel.FK__PrecioVen__Produ__3A81B327" FromRole="PrecioVenta" ToRole="Producto" />
+  </EntityType>
+  <Association Name="FK__PrecioVen__Lista__398D8EEE">
+    <End Type="AbarroteriaModel.ListaPrecio" Role="ListaPrecio" Multiplicity="1" />
+    <End Type="AbarroteriaModel.PrecioVenta" Role="PrecioVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListaPrecio">
+        <PropertyRef Name="ListaPrecioId" />
+      </Principal>
+      <Dependent Role="PrecioVenta">
+        <PropertyRef Name="ListaPrecio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PrecioVen__Produ__3A81B327">
+    <End Type="AbarroteriaModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="AbarroteriaModel.PrecioVenta" Role="PrecioVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="productoId" />
+      </Principal>
+      <Dependent Role="PrecioVenta">
+        <PropertyRef Name="ProductoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FacturaDetalle">
+    <Key>
+      <PropertyRef Name="FacturaDetalleId" />
+    </Key>
+    <Property Name="FacturaDetalleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FacturaID" Type="Int32" Nullable="false" />
+    <Property Name="ProductoID" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="PrecioUnitario" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <Association Name="FK__Factura__Cliente__3D5E1FD2">
+    <End Type="AbarroteriaModel.Cliente" Role="Cliente" Multiplicity="1" />
+    <End Type="AbarroteriaModel.Factura" Role="Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ClienteID" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

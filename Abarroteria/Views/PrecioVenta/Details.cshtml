@@ -1,0 +1,58 @@
+﻿@model Abarroteria.DataBase.PrecioVenta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PrecioVenta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDesde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDesde)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaHasta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaHasta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListaPrecio1.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListaPrecio1.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos.codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos.codigo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PrecioVentaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

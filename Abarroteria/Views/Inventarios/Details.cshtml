@@ -1,0 +1,42 @@
+﻿@model Abarroteria.DataBase.Inventario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inventario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Disponible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disponible)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bodega.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bodega.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos.codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos.codigo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InventarioId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

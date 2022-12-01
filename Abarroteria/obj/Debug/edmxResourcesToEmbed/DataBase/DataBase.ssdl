@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AbarroteriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bodega">
+    <Key>
+      <PropertyRef Name="BodegaId" />
+    </Key>
+    <Property Name="BodegaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="ClienteID" />
+    </Key>
+    <Property Name="ClienteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="150" />
+    <Property Name="RTN" Type="varchar" MaxLength="150" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Direccion" Type="varchar(max)" />
+    <Property Name="ListaPrecioID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Factura">
+    <Key>
+      <PropertyRef Name="FacturaID" />
+    </Key>
+    <Property Name="FacturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoFactura" Type="varchar" MaxLength="50" />
+    <Property Name="ClienteId" Type="int" Nullable="false" />
+    <Property Name="TipoFactura" Type="varchar" MaxLength="50" />
+    <Property Name="FechaFactura" Type="datetime" Nullable="false" />
+    <Property Name="FechaVencimiento" Type="datetime" />
+    <Property Name="ValorFactura" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SaldoPendiente" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="FacturaDetalle">
+    <Key>
+      <PropertyRef Name="FacturaDetalleId" />
+    </Key>
+    <Property Name="FacturaDetalleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FacturaID" Type="int" Nullable="false" />
+    <Property Name="ProductoID" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="PrecioUnitario" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Inventario">
+    <Key>
+      <PropertyRef Name="InventarioId" />
+    </Key>
+    <Property Name="InventarioId" Type="int" Nullable="false" />
+    <Property Name="BodegaId" Type="int" Nullable="false" />
+    <Property Name="ProductoId" Type="int" Nullable="false" />
+    <Property Name="Disponible" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListaPrecio">
+    <Key>
+      <PropertyRef Name="ListaPrecioId" />
+    </Key>
+    <Property Name="ListaPrecioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="PrecioVenta">
+    <Key>
+      <PropertyRef Name="PrecioVentaID" />
+    </Key>
+    <Property Name="PrecioVentaID" Type="int" Nullable="false" />
+    <Property Name="ProductoID" Type="int" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="FechaDesde" Type="datetime" Nullable="false" />
+    <Property Name="FechaHasta" Type="datetime" Nullable="false" />
+    <Property Name="ListaPrecio" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="productoId" />
+    </Key>
+    <Property Name="productoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="ProveedorID" />
+    </Key>
+    <Property Name="ProveedorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="RTN" Type="varchar" MaxLength="50" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Direccion" Type="varchar(max)" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TipoPago">
+    <Key>
+      <PropertyRef Name="tipoPagoId" />
+    </Key>
+    <Property Name="tipoPagoId" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Cliente__ListaPr__286302EC">
+    <End Role="ListaPrecio" Type="Self.ListaPrecio" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListaPrecio">
+        <PropertyRef Name="ListaPrecioId" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="ListaPrecioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Factura__Cliente__3D5E1FD2">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ClienteID" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inventari__Bodeg__32E0915F">
+    <End Role="Bodega" Type="Self.Bodega" Multiplicity="1" />
+    <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bodega">
+        <PropertyRef Name="BodegaId" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="BodegaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inventari__Produ__33D4B598">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="productoId" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="ProductoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PrecioVen__Lista__398D8EEE">
+    <End Role="ListaPrecio" Type="Self.ListaPrecio" Multiplicity="1" />
+    <End Role="PrecioVenta" Type="Self.PrecioVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListaPrecio">
+        <PropertyRef Name="ListaPrecioId" />
+      </Principal>
+      <Dependent Role="PrecioVenta">
+        <PropertyRef Name="ListaPrecio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PrecioVen__Produ__3A81B327">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="PrecioVenta" Type="Self.PrecioVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="productoId" />
+      </Principal>
+      <Dependent Role="PrecioVenta">
+        <PropertyRef Name="ProductoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AbarroteriaModelStoreContainer">
+    <EntitySet Name="Bodega" EntityType="Self.Bodega" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListaPrecio" EntityType="Self.ListaPrecio" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrecioVenta" EntityType="Self.PrecioVenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoPago" EntityType="Self.TipoPago" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Cliente__ListaPr__286302EC" Association="Self.FK__Cliente__ListaPr__286302EC">
+      <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Factura__Cliente__3D5E1FD2" Association="Self.FK__Factura__Cliente__3D5E1FD2">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Factura" EntitySet="Factura" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inventari__Bodeg__32E0915F" Association="Self.FK__Inventari__Bodeg__32E0915F">
+      <End Role="Bodega" EntitySet="Bodega" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inventari__Produ__33D4B598" Association="Self.FK__Inventari__Produ__33D4B598">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PrecioVen__Lista__398D8EEE" Association="Self.FK__PrecioVen__Lista__398D8EEE">
+      <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+      <End Role="PrecioVenta" EntitySet="PrecioVenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PrecioVen__Produ__3A81B327" Association="Self.FK__PrecioVen__Produ__3A81B327">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="PrecioVenta" EntitySet="PrecioVenta" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

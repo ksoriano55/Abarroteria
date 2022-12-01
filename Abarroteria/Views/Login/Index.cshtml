@@ -1,0 +1,90 @@
+﻿@model Abarroteria.ViewModels.LoginViewModel
+    Layout = null;
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/images/icons/iconoSys.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendors/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendors/animate.css/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendors/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendors/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendors/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendors/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "login100-form validate-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <span class="login100-form-title p-b-43">
+                        Inicio de sesion
+                    </span>
+                    <div class="wrap-input100 validate-input" data-validate="El usuario es un campo obligatorio">
+                        @Html.TextBoxFor(m => m.usuario, new { @class = "input100", autocomplete = "off" })
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Usuario</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="La contraseña es un campo obligatorio">
+                        @Html.PasswordFor(m => m.passWord, new { @class = "input100", @onchange = "debounce()" })
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Contraseña</span>
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <br />
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                }
+                <div class="login100-more" style="background-image: url('../../images/Fondo.jpg'); ">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendors/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendors/bootstrap/js/dist/popper.js"></script>
+    <script src="~/vendors/bootstrap/js/dist/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendors/select2/dist/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendors/daterangepicker/moment.min.js"></script>
+    <script src="~/vendors/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendors/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/js/main.js"></script>
+
+</body>
+</html>

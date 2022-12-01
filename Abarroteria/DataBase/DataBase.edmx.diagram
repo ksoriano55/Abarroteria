@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1b9700c3549941e2afad1f7a30b5cef2" Name="Diagram1">
+        <EntityTypeShape EntityType="AbarroteriaModel.Bodega" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbarroteriaModel.Cliente" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbarroteriaModel.Factura" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbarroteriaModel.ListaPrecio" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbarroteriaModel.Producto" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="AbarroteriaModel.FK__Cliente__ListaPr__286302EC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AbarroteriaModel.TipoPago" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AbarroteriaModel.Inventario" Width="1.5" PointX="7" PointY="4.5" />
+        <EntityTypeShape EntityType="AbarroteriaModel.Proveedor" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="AbarroteriaModel.FK__Inventari__Bodeg__32E0915F" />
+        <AssociationConnector Association="AbarroteriaModel.FK__Inventari__Produ__33D4B598" />
+        <EntityTypeShape EntityType="AbarroteriaModel.PrecioVenta" Width="1.5" PointX="10" PointY="2.75" />
+        <AssociationConnector Association="AbarroteriaModel.FK__PrecioVen__Lista__398D8EEE" />
+        <AssociationConnector Association="AbarroteriaModel.FK__PrecioVen__Produ__3A81B327" />
+        <EntityTypeShape EntityType="AbarroteriaModel.FacturaDetalle" Width="1.5" PointX="5.375" PointY="7.75" />
+        <AssociationConnector Association="AbarroteriaModel.FK__Factura__Cliente__3D5E1FD2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
